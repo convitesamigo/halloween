@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="icon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite de Halloween</title>
+    <style>
+        @font-face {
+            font-family: MonsterFont;
+            src: url(fonts/shlop\ rg.woff);
+        }
+        @font-face {
+            font-family: Molengo;
+            src: url(fonts/Molengo.ttf)
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .pix{
+            width: 50%;
+            height: auto;
+            max-height: 50%;
+            object-fit: contain;
+            margin-top: 10%;
+        }
+        h1{
+            font-family: Molengo;
+            font-size: 30px;
+        }
+        #btn{
+            border: none;
+            width: 30%;
+            height: 20%;
+            height: auto;
+            max-height: 50%;
+            object-fit: contain;
+            margin-top: 10%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>INFORMAÇÕES</h1>
+        <hr>
+       <h2>Data: <span style="font-weight: none; font-style: oblique;">04/10</span></h2>
+       <h2>Local:<span style="font-style: oblique"> Espaço Zé Bia</span></h2>
+       <hr>
+       <h1>Pagamento - <span style="font-style: oblique"> pix </span></h1>
+       <img src="pix-logo.png" class="pix">
+       <h2>Valor: R$50,00</h2>
+       <h2>Pix: <span id="pix-num">11 964115230</span> <br><button id="btn"  onclick="copyText()">Copiar Chave Pix</button></h2>
+    </div>
+
+    <script>
+        function copyText() {
+            var textElement = document.getElementById("pix-num");
+
+            var tempTextArea = document.createElement("textarea");
+            tempTextArea.value = textElement.textContent;
+
+            document.body.appendChild(tempTextArea);
+
+            tempTextArea.select();
+            tempTextArea.setSelectionRange(0, 99999);
+
+            document.execCommand("copy");
+
+            document.body.removeChild(tempTextArea);
+            document.getElementById("btn").innerText = "Copiado!"
+        }
+
+        function randomRange(min, max) {
+            
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+
+        const disW = window.innerWidth;
+        const disH = window.innerHeight;
+        const ABOBORAS_COUNT = 10;
+        let aboboras = [];
+
+        for(let i=0; i < ABOBORAS_COUNT; i++){
+            aboboras.push(document.createElement("img"));
+            aboboras[i].src = "images/ab1.png";
+            aboboras[i].className = "ab";
+            aboboras[i].style.width = "15";
+            aboboras[i].style.height = "10%";
+            aboboras[i].style.position = "absolute";
+            aboboras[i].style.zIndex = "99999";
+            aboboras[i].style.left = (Math.random()*disW-80)+20 + "px";
+            aboboras[i].style.top = (Math.random()*100)*-1  + "px";
+            aboboras[i].vel = randomRange(0.4, 1.5);
+            aboboras[i].opc = 100;
+            document.body.appendChild(aboboras[i]);
+        }
+
+
+
+        let interv = setInterval(()=>{
+            for(let i=0; i < aboboras.length; i++){
+                aboboras[i].style.top = `${parseFloat(aboboras[i].style.top) +  aboboras[i].vel}px`
+                aboboras[i].opc -= 0.4;
+                aboboras[i].style.opacity =  aboboras[i].opc + "%";
+
+                if(aboboras[i].opc <= 0){
+                    aboboras.splice(i, 1);
+                }
+            }
+            
+            //Fim do Interval
+            if(aboboras.length == 0){
+                clearInterval(interv);
+                document.querySelectorAll(".ab").forEach((e)=>{
+                    e.remove()
+                });
+            }
+
+        }, 0.1);  //Interval
+
+    </script>
+</body>
+</html>

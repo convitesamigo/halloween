@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="icon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite de Halloween</title>
+    <style>
+        @font-face {
+            font-family: MonsterFont;
+            src: url(fonts/shlop\ rg.woff);
+        }
+        @font-face {
+            font-family: Wednesday;
+            src: url(fonts/Wednesday.ttf);
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header {
+            background-color: black;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: MonsterFont;
+            font-size: 36px;
+            font-weight: normal;
+        }
+        .h1-data{
+            font-family: Wednesday;
+            font-size: 36px;
+            font-weight: normal;
+        }
+
+        .invitation {
+            background-color: black;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: FF6600;
+            background: radial-gradient(circle, #FF6200 5%, #FF6600 65%);
+            color: white;
+            font-weight: bolder;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 0px;
+        }
+        
+        .imgH{
+            width: 75%;
+            height: 60%;
+            transition: 1s;
+            animation: myAnim 2s ease 0s infinite alternate none;
+        }
+        @keyframes myAnim {
+            0% {
+                transform: scale(0.95);
+                rotate: -1deg;
+            }
+
+            100% {
+                transform: scale(1.05);
+                rotate: 2deg;
+            }
+        }
+        .imgH:hover{
+            transform:rotateX(20deg);
+        }
+        .lIMG{
+            width: 70%;
+            height: 50%;
+        }
+        .aranha{
+            margin-top: 5%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: auto;
+            transform-origin: center center;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+        .quadrado {
+            backdrop-filter: blur(10px);
+            width: 100%;
+            height: 80%;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 5%;
+            position: absolute;
+            z-index: 999;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            justify-content:center;
+            align-items: center;
+        }
+        .convite{
+            width: 70%;
+            height: auto;
+            max-height: 70%;
+            object-fit: contain;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="quadrado" id="quadrado">
+        <img src="convite.png" class="convite">
+        <h1 style="font-size: 34px;">Clique Para Abrir o Convite</h1>
+    </div>
+    <div class="container">
+        <div class="header">
+            <img class="imgH" src="ab_img.jpg">
+            <h1>VOCÊ ESTÁ CONVIDADO(A) <br> PARA UMA NOITE DE HORRORES! <br> <span style="color: red">VOCÊ PREFERE DOCES OU TRAVESSURAS?</span></h1>
+            <!--<img class="lIMG" src="h_letters.png"><br>-->
+            <h1 class="h1-data" style="font-size: 28.5px;">DATA: 04/10/2023</h1>
+            <p>Local: Espaço Zé Biá</p>
+        </div>
+        <div class="invitation">
+            <a  href="javascript:;" onclick="redirect()" class="btn" id="btn" style="visibility: hidden;">Quero Participar!<img class="aranha" id="arTeia" src="images/aranha.png"></a>
+        </div>
+    </div>
+    <audio src="song.mp3" id="audio"></audio>
+ 
+    <script>
+        document.onclick = () =>{
+            document.getElementById("btn").style.visibility = "visible";
+            document.getElementById("quadrado").style.visibility = "hidden";
+            document.body.style.overflow = "all";
+            document.getElementById("audio").play();
+            
+            createAboboras();
+        }
+        function randomRange(min, max) {
+            
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+
+        const disW = window.innerWidth;
+        const disH = window.innerHeight;
+        const ABOBORAS_COUNT = 10;
+        let aboboras = [];
+
+        function createAboboras(){
+            for(let i=0; i < ABOBORAS_COUNT; i++){
+                aboboras.push(document.createElement("img"));
+                aboboras[i].src = "images/ab1.png";
+                aboboras[i].className = "ab";
+                aboboras[i].style.width = "15";
+                aboboras[i].style.height = "10%";
+                aboboras[i].style.position = "absolute";
+                aboboras[i].style.zIndex = "99999";
+                aboboras[i].style.left = (Math.random()*disW-80)+20 + "px";
+                aboboras[i].style.top = (Math.random()*100)*-1  + "px";
+                aboboras[i].vel = randomRange(0.4, 1.5);
+                aboboras[i].opc = 100;
+                document.body.appendChild(aboboras[i]);
+            }
+
+            var angleSineCount = 0;
+            setInterval(()=>{
+                angleSineCount += 0.001;
+                document.getElementById("arTeia").style.rotate = `${Math.sin(angleSineCount) * 10 + 1}deg`;
+            }, 1);
+
+            let interv = setInterval(()=>{
+                for(let i=0; i < aboboras.length; i++){
+                    aboboras[i].style.top = `${parseFloat(aboboras[i].style.top) +  aboboras[i].vel}px`
+                    aboboras[i].opc -= 0.4;
+                    aboboras[i].style.opacity =  aboboras[i].opc + "%";
+
+                    if(aboboras[i].opc <= 0){
+                        aboboras.splice(i, 1);
+                    }
+                }
+                
+                //Fim do Interval
+                if(aboboras.length == 0){
+                    clearInterval(interv);
+                    document.querySelectorAll(".ab").forEach((e)=>{
+                        e.remove()
+                    });
+                }
+
+            }, 0.1);  //Interval
+        }
+        function redirect(){
+            window.open("https://cc11-191-7-96-117.ngrok-free.app/template1/participar.html");
+        }
+        window.onload = () =>{
+            createAboboras();
+        }
+        
+    </script>
+</body>
+</html>
