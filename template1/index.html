@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite de Halloween</title>
+    <style>
+        @font-face {
+            font-family: MonsterFont;
+            src: url(fonts/shlop\ rg.woff);
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header {
+            background-color: black;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: MonsterFont;
+            font-size: 36px;
+            font-weight: normal;
+        }
+
+        .invitation {
+            background-color: black;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: FF6600;
+            background: radial-gradient(circle, #FF6200 5%, #FF6600 65%);
+            color: white;
+            font-weight: bolder;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 0px;
+        }
+        
+        .imgH{
+            width: 75%;
+            height: 60%;
+            transition: 1s;
+            animation: myAnim 2s ease 0s infinite alternate none;
+        }
+        @keyframes myAnim {
+            0% {
+                transform: scale(0.95);
+                rotate: -1deg;
+            }
+
+            100% {
+                transform: scale(1.05);
+                rotate: 2deg;
+            }
+        }
+        .imgH:hover{
+            transform:rotateX(20deg);
+        }
+        .lIMG{
+            width: 70%;
+            height: 50%;
+        }
+        .aranha{
+            margin-top: 5%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: auto;
+            transform-origin: center center;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img class="imgH" src="ab_img.jpg">
+            <h1>VOCE ESTÁ CONVIDADO(A) <br> PARA A MINHA FESTA DE</h1>
+            <img class="lIMG" src="h_letters.png"><br>
+            <h1>29 DE OUTUBRO | 22H</h1>
+            <p>RUA FELIZ, 123 - CIDADE CRISÓPLIS</p>
+        </div>
+        <div class="invitation">
+            <a href="#" class="btn">Confirmar Presença <img class="aranha" id="arTeia" src="images/aranha.png"></a>
+        </div>
+    </div>
+
+    <script>
+        function randomRange(min, max) {
+            
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+
+        const disW = window.innerWidth;
+        const disH = window.innerHeight;
+        const ABOBORAS_COUNT = 10;
+        let aboboras = [];
+
+        for(let i=0; i < ABOBORAS_COUNT; i++){
+            aboboras.push(document.createElement("img"));
+            aboboras[i].src = "images/ab1.png";
+            aboboras[i].className = "ab";
+            aboboras[i].style.width = "15";
+            aboboras[i].style.height = "10%";
+            aboboras[i].style.position = "absolute";
+            aboboras[i].style.zIndex = "99999";
+            aboboras[i].style.left = (Math.random()*disW-80)+20 + "px";
+            aboboras[i].style.top = (Math.random()*100)*-1  + "px";
+            aboboras[i].vel = randomRange(0.4, 1.5);
+            aboboras[i].opc = 100;
+            document.body.appendChild(aboboras[i]);
+        }
+
+        var angleSineCount = 0;
+        setInterval(()=>{
+            angleSineCount += 0.01;
+            document.getElementById("arTeia").style.rotate = `${Math.sin(angleSineCount) * 5 + 1}deg`;
+        }, 1);
+
+        let interv = setInterval(()=>{
+            for(let i=0; i < aboboras.length; i++){
+                aboboras[i].style.top = `${parseFloat(aboboras[i].style.top) +  aboboras[i].vel}px`
+                aboboras[i].opc -= 0.4;
+                aboboras[i].style.opacity =  aboboras[i].opc + "%";
+
+                if(aboboras[i].opc <= 0){
+                    aboboras.splice(i, 1);
+                }
+            }
+            
+            //Fim do Interval
+            if(aboboras.length == 0){
+                clearInterval(interv);
+                document.querySelectorAll(".ab").forEach((e)=>{
+                    e.remove()
+                });
+            }
+
+        }, 0.1);  //Interval
+
+    </script>
+</body>
+</html>

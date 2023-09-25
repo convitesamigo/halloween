@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @font-face {
+            font-family: Font1;
+            src: url(font2.ttf);
+        }
+        @font-face {
+            font-family: Font2;
+            src: url(Bungee.ttf);
+        }
+        body {
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-position: center;
+            overflow: hidden;
+        }
+        .conteudo{
+            margin-top: 30%;
+            height: 100%;
+        }
+        h1{
+            backdrop-filter: blur(2px);
+            font-size: 30px;
+            background-color: #00000022;
+            border-radius: 10%;
+            font-family: Font1;
+            color: white;
+            text-align: center;
+            text-shadow: 1px 2px 2px black;
+            
+        }
+        .h_title{
+            font-family: Font2;
+            text-align: center;
+            font-size: 30px;
+            color: #AB2E00;
+            text-shadow: 1px 2px 2px black;
+        }
+        .opt{
+            font-size: 15px;
+        }
+
+        .line{
+            color: #F26D2D;
+            font-family: Font2;
+            text-align: center;
+            text-shadow: 1px 2px 2px black;
+        }
+        .int{
+            color: #AB2E00;
+        }
+        .btn{
+            display: inline-block;
+            padding: 10px 20px;
+            background: FF6600;
+            background: radial-gradient(circle, #FF6200 5%, #FF6600 65%);
+            color: white;
+            font-weight: bolder;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 0px;
+            text-shadow: 1px 2px 2px black;
+        }
+        @media screen and (min-height: 600px){
+           .conteudo{
+            margin-top: 0%;
+            height: 100%;
+           }
+        }
+        @media screen and (min-height: 520px){
+           .conteudo{
+            margin-top: -5%;
+            height: 100%;
+           }
+        }
+        @media screen and (min-height: 460px){
+           .conteudo{
+            margin-top: -10%;
+            height: 100%;
+           }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="conteudo">
+        <h1>VOCE ESTA CONVIDADO(A) <br> PARA A MINHA FESTA DE</h1>
+        <p class="h_title">Halloween</p>
+        <p class="line">29 DE OUTUBRO <span class="int">|</span> ÀS 20 HORAS</p>
+        <p class="line"><span class="int">Endereço:</span> RUA FELIZ, 123</p>
+        <a href="#" class="btn">Quero Participar!</a>
+    </div>
+</body>
+</html>
